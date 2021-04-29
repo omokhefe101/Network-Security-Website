@@ -3,11 +3,9 @@ const path = require('path');
 const mysql = require("mysql");
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
-const port = 3000 || process.env.PORT;
-
-dotenv.config({ path: './.env'})
 
 const app = express();
+
 
 const db = mysql.createConnection({
     host: process.env.DATABASE_HOST,
@@ -41,4 +39,10 @@ app.use('/', require('./routes/pages'));
 app.use('/auth', require('./routes/auth'));
 
 
-app.listen(port);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
+
+
+module.exports = db;
